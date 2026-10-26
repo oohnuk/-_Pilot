@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>오늘 내가 끌리는 책은?! | 도서관 분류번호 룰렛</title>
+<style>
+:root{--bg:#f3efe6;--ink:#233c37;--soft:#6b786e;--green:#31564a;--line:#d8d8c9;--paper:#fffdf8;--lime:#dfe8d3}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
+body:before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:radial-gradient(#b1b9a9 .65px,transparent .65px);background-size:12px 12px}
+main{position:relative;max-width:960px;margin:0 auto;padding:65px 22px 42px}.eyebrow{text-align:center;font-size:12px;letter-spacing:.3em;color:#697e6c;font-weight:800}.hero{text-align:center;margin:20px auto 36px}h1{font-size:clamp(32px,6vw,56px);letter-spacing:-.065em;line-height:1.2;margin:14px 0 15px;font-weight:850}.subtitle{color:#6e796e;font-size:15px;line-height:1.8;margin:0}.shell{background:var(--paper);border:1px solid #e0dfd5;border-radius:28px;padding:38px 42px 30px;box-shadow:0 18px 45px #465a4814,0 2px 4px #465a480b;max-width:740px;margin:auto}.topline{display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.17em;color:#708176;font-weight:750}.topline .dot{height:8px;width:8px;background:#98b49e;border-radius:50%;display:inline-block;margin-right:7px}.slot-wrap{display:flex;justify-content:center;gap:10px;margin:30px 0 29px;align-items:center}.slot{display:flex;align-items:center;justify-content:center;background:#e9eddf;border:1px solid #d3dfd0;border-radius:17px;height:124px;width:100px;box-shadow:inset 0 5px 10px #3957470b;overflow:hidden;font-size:clamp(46px,8vw,73px);font-variant-numeric:tabular-nums;font-weight:800;letter-spacing:-.06em;color:var(--green)}.slot.spinning{background:#dfe7d7}.slot.point{width:42px;background:none;border:0;box-shadow:none;font-size:67px;align-items:flex-end;padding-bottom:13px}.spin{display:flex;margin:0 auto;align-items:center;justify-content:center;gap:10px;width:min(100%,310px);padding:18px 25px;border:0;border-radius:999px;background:var(--green);color:white;font-size:17px;font-weight:800;cursor:pointer;transition:transform .15s,background .15s}.spin:hover{background:#234339;transform:translateY(-2px)}.spin:active{transform:translateY(0)}.spin:disabled{opacity:.8;cursor:wait;transform:none}.micro{text-align:center;color:#9a9f93;font-size:12px;margin:16px 0 0}.result{margin:31px 0 0;border-top:1px solid #e5e8dd;padding:28px 0 0;min-height:188px}.result-label{color:#77907e;font-size:12px;font-weight:800;letter-spacing:.15em}.result h2{font-size:25px;line-height:1.3;letter-spacing:-.045em;margin:12px 0 19px}.result-placeholder{color:#97a197;font-size:16px;font-weight:500;margin:16px 0}.tags{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tag{background:#f3f5ef;border-radius:15px;padding:17px 18px;min-width:0}.tag small{display:block;color:#7a8d7f;font-size:11px;margin-bottom:7px;font-weight:800;letter-spacing:.08em}.tag strong{display:block;font-size:18px;letter-spacing:-.03em;overflow-wrap:anywhere}.instruction{max-width:740px;margin:24px auto 0;text-align:center;color:#68776d;font-size:14px;line-height:1.85}.instruction b{color:#31564a}.fineprint{max-width:740px;margin:24px auto 0;text-align:center;font-size:11px;line-height:1.8;color:#899388}.fineprint a{color:#59786a;text-underline-offset:3px}.book{display:inline-block;margin-left:8px;transform:rotate(-8deg)}
+@media(max-width:620px){main{padding:45px 15px 30px}.hero{margin-bottom:27px}.shell{padding:27px 17px 23px;border-radius:23px}.slot-wrap{gap:6px;margin:28px 0 24px}.slot{width:clamp(45px,16vw,81px);height:clamp(78px,20vw,106px);border-radius:11px;font-size:clamp(40px,11vw,64px)}.slot.point{width:20px;font-size:45px;padding-bottom:9px}.tag{padding:14px 11px}.tag strong{font-size:15px}.result h2{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+ <div class="eyebrow">FIND YOUR NEXT BOOK <span class="book" aria-hidden="true">✦</span></div>
+ <header class="hero"><h1>오늘 내가 끌리는 책은?!</h1><p class="subtitle">우연히 만난 숫자가 새로운 책으로 이어지는 순간.<br>룰렛을 돌려 오늘의 서가를 발견해 보세요.</p></header>
+ <section class="shell" aria-label="KDC 분류번호 룰렛">
+  <div class="topline"><span>LIBRARY ROULETTE</span><span><span class="dot"></span>KDC 6TH</span></div>
+  <div class="slot-wrap" aria-label="5칸 룰렛. 네 번째 칸은 소수점으로 고정됩니다.">
+   <div class="slot digit" id="digit0">0</div><div class="slot digit" id="digit1">0</div><div class="slot digit" id="digit2">0</div><div class="slot point" aria-label="소수점">.</div><div class="slot digit" id="digit3">0</div>
+  </div>
+  <button class="spin" type="button" id="spinBtn"><span aria-hidden="true">↻</span> 룰렛 돌리기</button>
+  <p class="micro">숫자 4자리 중 소수점 앞 3자리 · 뒤 1자리</p>
+  <div class="result" id="result" aria-live="polite" aria-atomic="true">
+   <div class="result-label">TODAY'S BOOK DESTINATION</div>
+   <h2 class="result-placeholder">어떤 서가가 나올까요?</h2>
+  </div>
+ </section>
+ <p class="instruction">나온 번호와 가장 가까운 <b>도서관 서가</b>를 찾아가 보세요.<br>마음이 가는 책 한 권을 골라보는 새로운 독서 방법입니다.</p>
+ <footer class="fineprint">KDC 제6판의 주류·강목을 기준으로 한 안내입니다. 숫자의 소수점 이하 세부 주제는 표시하지 않으며, 실제 도서관의 분류·배가 및 소장 여부와 다를 수 있습니다.<br>참고: <a href="https://openarchives.net/kos/%EB%B6%84%EB%A5%98:KDC" target="_blank" rel="noopener noreferrer">KDC 제6판 강목표</a> · <a href="https://librarian.nl.go.kr/kormarc/kormarc_2014/sub/01X_09X_056.html" target="_blank" rel="noopener noreferrer">국립중앙도서관 한국십진분류기호 안내</a></footer>
+</main>
+<script>
+'use strict';
+// KDC 제6판 강목(각 주류마다 00, 10, ... 90)
+const mainNames=['총류','철학','종교','사회과학','자연과학','기술과학','예술','언어','문학','역사'];
+const divisions=[
+['총류','도서학·서지학','문헌정보학','백과사전','강연집·수필집·연설문집','일반 연속간행물','일반 학회·단체·기관','신문·저널리즘','일반 전집·총서','향토자료'],
+['철학','형이상학','인식론·인과론·인간학','철학의 체계','경학','동양철학·동양사상','서양철학','논리학','심리학','윤리학·도덕철학'],
+['종교','비교종교','불교','기독교','도교','천도교',null,'힌두교·브라만교','이슬람교','기타 제종교'],
+['사회과학','통계자료','경제학','사회학·사회문제','정치학','행정학','법률·법학','교육학','풍습·예절·민속학','국방·군사학'],
+['자연과학','수학','물리학','화학','천문학','지학','광물학','생명과학','식물학','동물학'],
+['기술과학','의학','농업·농학','공학·토목공학·환경공학','건축·건축학','기계공학','전기·통신·전자공학','화학공학','제조업','생활과학'],
+['예술',null,'조각·조형미술','공예','서예','회화·도화·디자인','사진예술','음악','공연예술·매체예술','오락·스포츠'],
+['언어','한국어','중국어','일본어 및 기타 아시아제어','영어','독일어','프랑스어','스페인어·포르투갈어','이탈리아어','기타 제어'],
+['문학','한국문학','중국문학','일본문학 및 기타 아시아 제문학','영미문학','독일문학','프랑스문학','스페인·포르투갈 문학','이탈리아문학','기타 제문학'],
+['역사','아시아','유럽','아프리카','북아메리카','남아메리카','오세아니아·양극지방',null,'지리','전기']
+];
+const digits=[...document.querySelectorAll('.digit')];
+const button=document.getElementById('spinBtn');
+const result=document.getElementById('result');
+const randomDigit=()=>Math.floor(Math.random()*10);
+const selectNumber=()=>{
+ // 배정되지 않은 강목(260, 610, 970)은 뽑지 않습니다.
+ let n;
+ do { n=Math.floor(Math.random()*1000); } while (divisions[Math.floor(n/100)][Math.floor((n%100)/10)]===null);
+ return String(n).padStart(3,'0')+String(randomDigit());
+};
+function showResult(value){
+ const firstThree=Number(value.slice(0,3));
+ const major=Math.floor(firstThree/100),division=Math.floor((firstThree%100)/10);
+ const majorCode=String(major*100).padStart(3,'0');
+ const divisionCode=String(major*100+division*10).padStart(3,'0');
+ const heading=document.createElement('h2');heading.textContent=`오늘의 분류번호는 ${value.slice(0,3)}.${value[3]}!`;
+ const tags=document.createElement('div');tags.className='tags';
+ for(const [label,text] of [['주류 · '+majorCode,mainNames[major]],['강목 · '+divisionCode,divisions[major][division]]]){
+ const tag=document.createElement('div');tag.className='tag';const small=document.createElement('small');small.textContent=label;const strong=document.createElement('strong');strong.textContent=text;tag.append(small,strong);tags.append(tag);
+ }
+ result.replaceChildren();const caption=document.createElement('div');caption.className='result-label';caption.textContent="TODAY'S BOOK DESTINATION";result.append(caption,heading,tags);
+}
+let spinning=false;
+button.addEventListener('click',()=>{
+ if(spinning)return;spinning=true;button.disabled=true;button.innerHTML='<span aria-hidden="true">↻</span> 숫자 탐색 중...';
+ result.innerHTML='<div class="result-label">TODAY\'S BOOK DESTINATION</div><h2 class="result-placeholder">오늘의 책을 찾는 중...</h2>';
+ digits.forEach(d=>d.classList.add('spinning'));
+ const target=selectNumber();const start=performance.now();const duration=2300;let lastUpdate=0;
+ function frame(now){const elapsed=now-start;if(elapsed-lastUpdate>=45){digits.forEach((d,i)=>{const stopAt=duration-(3-i)*230;d.textContent=elapsed>=stopAt?target[i]:randomDigit()});lastUpdate=elapsed}
+ if(elapsed<duration){requestAnimationFrame(frame)}else{digits.forEach((d,i)=>{d.textContent=target[i];d.classList.remove('spinning')});showResult(target);button.disabled=false;button.innerHTML='<span aria-hidden="true">↻</span> 다시 돌리기';spinning=false}}
+ requestAnimationFrame(frame);
+});
+</script>
+</body>
+</html>
